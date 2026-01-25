@@ -18,7 +18,7 @@ add_executable(${PROJECT_NAME}
     5бл/main.cpp
     6бл/main.cpp
     7бл/main.cpp
-    7бл/matrix.cpp
+
 )
 
 # Подключение заголовков
