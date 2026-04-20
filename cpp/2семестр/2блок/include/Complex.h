@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 // Объявляем класс 
 class Complex {
 
@@ -18,6 +18,7 @@ public:
 
     /* Вспомогательные методы */
     void print(); // Функция для вывода в консоль
+    std::string toString() const;
 
 // Приватная секция
 private: 

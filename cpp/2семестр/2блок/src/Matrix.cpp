@@ -27,21 +27,40 @@ void Matrix::validateSizeMult(const Matrix& othr) const {
 bool Matrix::validateSameSizeBool(const Matrix& othr) const {
     return (m_rows == othr.m_rows && m_cols == othr.m_cols);
 }
-Matrix Matrix::getMinor(std::size_t row, std::size_t col) const {
-    Matrix res(m_rows - 1, m_cols - 1);
-    for (std::size_t i = 0; i < m_rows; i++) {
-        for (std::size_t j = 0; j < m_cols; j++) {
-            if (i == row) {
-                break;
-            }
 
-            if (j != col) {
-                res.data[i][j] = data[i][j];
-            }
-        }
-    }
-}
 /* Операции с матрицами */
+
+Matrix Matrix::getMinor(std::size_t row, std::size_t col) const {
+    if (col < 0 || row < 0 || row >= m_cols || row >= m_rows)
+    {
+        throw std::invalid_argument("Row or col out of range.");
+    }
+
+    if (m_cols <= 1 || m_rows <= 1)
+    {
+        throw std::logic_error("Cannot get minor for matrix 1x1.");
+    }
+
+    Matrix res(m_rows - 1, m_cols - 1);
+    std::size_t cur_row = 0;
+
+    for (std::size_t i = 0; i < m_rows; i++) {
+
+        std::size_t cur_col = 0;
+        if (i == row) continue;
+
+        for (std::size_t j = 0; j < m_cols; j++) {
+            
+            if (j == col) continue;
+            res.data[cur_row][cur_col] = data[i][j];
+            cur_col++;
+        }
+
+        cur_row++;
+    }
+
+    return res;
+}
 
 /* Проверки типов матриц */
 

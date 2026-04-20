@@ -14,6 +14,8 @@ public:
     Matrix invert() const;
     Matrix transpose() const;
 
+    Matrix algebraicalAddition() const;
+    Matrix getMinor(std::size_t row, std::size_t col) const;
     /* Операторы */
 
     Matrix operator+(const Matrix& othr) const;
@@ -28,7 +30,7 @@ public:
     bool operator==(const Matrix& othr) const;
     bool operator!=(const Matrix& othr) const;
 
-
+    
 private:
     std::vector<std::vector<double>> data;
     size_t m_rows;
@@ -38,8 +40,7 @@ private:
     void validateSameSize(const Matrix& othr) const;
     bool validateSameSizeBool(const Matrix& othr) const;
     void validateSizeMult(const Matrix& othr) const;
-    Matrix algerbraicalAddition() const;
-    Matrix getMinor(std::size_t row, std::size_t col) const;
+
 };
 
 Matrix operator*(const double& scalar, const Matrix& othr);

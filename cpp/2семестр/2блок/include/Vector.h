@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class Vector {
 private:
@@ -17,9 +18,11 @@ public:
     double operator*(const Vector& vec_2) const;
 
     /* Операции с векторами */
-    double getModule();
+    double getModule() const;
 
-    friend Vector vectorAdd(const Vector& vec_1, const Vector& vec_2);
-    friend double getCos(Vector vec_1, Vector vec_2);
+    friend Vector crossProduct(const Vector& vec_1, const Vector& vec_2);
+    friend double getCos(const Vector& vec_1, const Vector& vec_2);
+
+    std::string toString();
 };
 

@@ -1,9 +1,11 @@
 #include "Complex.h"
 #include <iostream>
+#include <string>
+#include <sstream>
 
 Complex::Complex(double real, double imag)
     : m_real(real)
-    , m_imag(imag) {}
+    , m_imag(imag) {};
 
 void Complex::print() {
 
@@ -16,6 +18,17 @@ void Complex::print() {
     } else {
         std::cout << m_real << (m_imag > 0 ? " + i" : " - i") << (m_imag > 0 ? m_imag : -m_imag) << "\n";
     }
+}
+
+std::string Complex::toString() const
+{
+    std::string op = (m_imag > 0 ? " + i" : " - i");
+
+    std::ostringstream oss;
+    oss << m_real << op << (m_imag > 0 ? m_imag : -m_imag);
+
+    std::string res = oss.str();
+    return res;
 }
 
 /* ========== Операторы ===========*/
