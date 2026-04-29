@@ -7,7 +7,6 @@ class Complex {
 public: 
 
     /* Конструкторы */
-    Complex() = default;
     Complex(double real, double imag);
     
     /* Операторы */

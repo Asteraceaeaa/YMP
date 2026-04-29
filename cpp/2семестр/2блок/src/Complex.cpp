@@ -22,11 +22,8 @@ void Complex::print() {
 
 std::string Complex::toString() const
 {
-    std::string op = (m_imag > 0 ? " + i" : " - i");
-
     std::ostringstream oss;
-    oss << m_real << op << (m_imag > 0 ? m_imag : -m_imag);
-
+    oss << m_real << (m_imag >= 0 ? " + " : " - ") << (m_imag >= 0 ? m_imag : -m_imag) << "i";
     std::string res = oss.str();
     return res;
 }
@@ -49,7 +46,7 @@ Complex Complex::operator-(const Complex& x) {
 }
 Complex Complex::operator*(const Complex& x) { 
 
-    double real = m_real * x.m_real - m_imag*  x.m_imag;
+    double real = m_real * x.m_real - m_imag * x.m_imag;
     double imag = m_real * x.m_imag + x.m_real * m_imag;
 
     return Complex(real, imag);

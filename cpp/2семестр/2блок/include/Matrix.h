@@ -1,12 +1,14 @@
 #pragma once
+#include <iostream>
 #include <vector>
-
 
 class Matrix {
 public:
     /* Конструкторы */
     Matrix();
-    Matrix(std::size_t rows, std::size_t cols);
+    Matrix(std::size_t rows, std::size_t cols, double InitValue = 0.0);
+
+    void resize(std::size_t r, std::size_t c);
 
     /* Операции с матрицами */
 
@@ -16,6 +18,17 @@ public:
 
     Matrix algebraicalAddition() const;
     Matrix getMinor(std::size_t row, std::size_t col) const;
+
+    /* Проверки типов матриц */
+
+    bool isSquare() const;
+    bool isDiagonal() const;
+    bool isZero() const;
+    bool isIdentity() const;
+    bool isSymmetrical() const;
+    bool isUpTriangle() const;
+    bool isDownTriangle() const;
+
     /* Операторы */
 
     Matrix operator+(const Matrix& othr) const;
@@ -26,11 +39,18 @@ public:
     Matrix& operator+=(const Matrix& othr);
     Matrix& operator-=(const Matrix& othr);
     Matrix& operator*=(const Matrix& othr);
-
+    Matrix& operator*=(const double& alpha);
     bool operator==(const Matrix& othr) const;
     bool operator!=(const Matrix& othr) const;
 
-    
+    friend std::ostream& operator<<(std::ostream& os, const Matrix& m);
+    friend std::istream& operator>>(std::istream& is, Matrix& m);
+
+    Matrix& operator=(const Matrix& othr);
+    /* Вспомогательные методы */
+
+    void autotestSingle();
+
 private:
     std::vector<std::vector<double>> data;
     size_t m_rows;
@@ -44,3 +64,5 @@ private:
 };
 
 Matrix operator*(const double& scalar, const Matrix& othr);
+std::ostream& operator<<(std::ostream& os, const Matrix& m);
+std::istream& operator>>(std::istream& is, Matrix& m);
