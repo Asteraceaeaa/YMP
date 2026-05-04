@@ -1,6 +1,7 @@
 #include "./include/Complex.h"
 #include "./include/Vector.h"
 #include "./include/Matrix.h"
+#include "./include/Polynom.h"
 #include <iostream>
 #include <fstream>
 
@@ -36,41 +37,47 @@ void autotestMatrix();
 void manualtestMatrix();
 int main() 
 {
-    while (true) 
-    {
-        clearConsole();
-        std::cout << "=============МЕНЮ=============\n\n";
-        std::cout << "1. Complex\n2. Vector\n3. Matrix\n4. \n5. \n\n";
-        std::cout << "Выберите, что будем тестировать(1-5) или введите -1: ";
 
-        int enter;
-        std::cin >> enter;
+    Polynom a(3, 1), b(6, -2.2);
+    std::cout << (a - b) << std::endl;
+    std::cout << (a + b) << std::endl;
+    std::cout << (a * b) << std::endl;
 
-        if (enter == -1) { break; }
+    // while (true) 
+    // {
+    //     clearConsole();
+    //     std::cout << "=============МЕНЮ=============\n\n";
+    //     std::cout << "1. Complex\n2. Vector\n3. Matrix\n4. Polynom\n5. \n\n";
+    //     std::cout << "Выберите, что будем тестировать(1-5) или введите -1: ";
 
-        switch (enter) {
-            case 1:
-                testComplex();
-                break;      
-            case 2:
-                testVector();
-                break;
-            case 3:
-                testMatrix();
-                break;
-            case 4:
-                std::cout << "Введите a и b через пробел, если z1 = a + ib";
-                break;
-                break;
-            case 5:
-                std::cout << "Введите a и b через пробел, если z1 = a + ib";
-                break;
-                break;
-            default:
-                std::cout << "Непон, че за дела? Давай нормальный ввод";
-                break;
-        }
-    }   
+    //     int enter;
+    //     std::cin >> enter;
+
+    //     if (enter == -1) { break; }
+
+    //     switch (enter) {
+    //         case 1:
+    //             testComplex();
+    //             break;      
+    //         case 2:
+    //             testVector();
+    //             break;
+    //         case 3:
+    //             testMatrix();
+    //             break;
+    //         case 4:
+    //             std::cout << "Введите a и b через пробел, если z1 = a + ib";
+    //             break;
+    //             break;
+    //         case 5:
+    //             std::cout << "Введите a и b через пробел, если z1 = a + ib";
+    //             break;
+    //             break;
+    //         default:
+    //             std::cout << "Непон, че за дела? Давай нормальный ввод";
+    //             break;
+    //     }
+    // }   
     return 0;
 
 }
