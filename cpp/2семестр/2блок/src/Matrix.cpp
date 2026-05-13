@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 
+const double eps = 1e-12;
+
 /* Конструкторы */
 Matrix::Matrix()
     : m_rows(0)
@@ -63,7 +65,7 @@ Matrix Matrix::getMinor(std::size_t row, std::size_t col) const {
         throw std::invalid_argument("Row or col out of range.");
     }
 
-    if (m_cols <= 1 || m_rows <= 1) {
+    if (m_cols == 1 || m_rows == 1) {
         throw std::logic_error("Cannot get minor for matrix 1x1.");
     }
 
@@ -139,7 +141,7 @@ Matrix Matrix::invert() const
 {
     if (!isSquare()) { throw std::logic_error("Matrix must be square."); }
     double d = det();
-    if (!d) { throw std::invalid_argument("Matrix have zero determinant."); }
+    if (std::abs(d) < eps) { throw std::invalid_argument("Matrix have zero determinant."); }
 
     return algebraicalAddition().transpose() * (1 / d);
 }
@@ -158,7 +160,7 @@ bool Matrix::isDiagonal() const
     {
         for (std::size_t j = 0; j < m_cols; j++)
         {
-            if (i != j && data[i][j] != 0) return false;
+            if (i != j && std::abs(data[i][j]) > eps) return false;
         }
     }
 
@@ -171,7 +173,7 @@ bool Matrix::isZero() const
     {
         for (std::size_t j = 0; j < m_cols; j++)
         {
-            if (data[i][j] != 0) return false;
+            if (std::abs(data[i][j]) > eps) return false;
         }
     }
 
@@ -184,7 +186,8 @@ bool Matrix::isIdentity() const
 
     for (std::size_t i = 0; i < m_rows; i++)
     {
-        if (data[i][i] != 1) return false;
+        if (std::abs(data[i][i] - 1.0) > eps)
+            return false;
     }
 
     return true;
@@ -201,7 +204,7 @@ bool Matrix::isUpTriangle() const
 
     for (std::size_t i = 1; i < m_rows; i++) {
         for (std::size_t j = 0; j < i; j++) {
-            if (data[i][j] != 0) {
+            if (std::abs(data[i][j]) > eps) {
                 return false;
             }
         }
@@ -217,7 +220,7 @@ bool Matrix::isDownTriangle() const
     {
         for (std::size_t j = 1 + i; j < m_cols; j++) 
         {
-            if (data[i][j] != 0) return false;
+            if (std::abs(data[i][j]) > eps) return false;
         }
     }
 
@@ -343,13 +346,14 @@ std::ostream& operator<<(std::ostream& os, const Matrix& m)
         os << "|";
         for (std::size_t j = 0; j < m.m_cols; j++)
         {
-            os << std::setw(w) << m.data[i][j];
+            os << std::setw(w) << (std::abs(m.data[i][j]) < eps ? 0 : m.data[i][j]);
         }
         os << "|\n";
     }
 
     return os;
 }
+
 std::istream& operator>>(std::istream& is, Matrix& m)
 { 
     for (std::size_t i = 0; i < m.m_rows; i++)
@@ -375,4 +379,9 @@ Matrix& Matrix::operator=(const Matrix& othr)
     data = othr.data;
 
     return *this;
+}
+
+void Matrix::defEl(const std::size_t& r, const std::size_t& c, const double& alpha)
+{
+    data[r-1][c-1] = alpha;
 }

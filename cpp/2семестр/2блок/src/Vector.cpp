@@ -20,6 +20,15 @@ std::string Vector::toString()
     return res;
 }
 
+double Vector::getX()
+{
+    return m_x;
+}
+double Vector::getY()
+{
+    return m_y;
+}
+
 /* Операторы */
 
 Vector Vector::operator+(const Vector& vec_2) const

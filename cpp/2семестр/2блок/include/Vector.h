@@ -10,7 +10,7 @@ private:
 public:
     /* Конструкторы */
     Vector() = default;
-    Vector(double x, double y, double z);
+    Vector(double x, double y, double z=0);
 
     /* Операторы */
     Vector operator+(const Vector& vec_2) const;
@@ -24,5 +24,7 @@ public:
     friend double getCos(const Vector& vec_1, const Vector& vec_2);
 
     std::string toString();
+    double getX();
+    double getY();
 };
 

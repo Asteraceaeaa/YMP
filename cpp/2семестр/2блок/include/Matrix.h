@@ -50,7 +50,7 @@ public:
     /* Вспомогательные методы */
 
     void autotestSingle();
-
+    void defEl(const std::size_t& r, const std::size_t& c, const double& alpha);
 private:
     std::vector<std::vector<double>> data;
     size_t m_rows;

@@ -1,25 +1,24 @@
 #include "./include/Complex.h"
-#include "./include/Vector.h"
 #include "./include/Matrix.h"
 #include "./include/Polynom.h"
-#include <iostream>
+#include "./include/Triangle.h"
+#include "./include/Vector.h"
 #include <fstream>
+#include <iostream>
 
 #ifdef _WIN32
-    #include <windows.h>
-    #define CLEAR "cls"
+#include <windows.h>
+#define CLEAR "cls"
 #else
-    #include <unistd.h>
-    #define CLEAR "clear"
+#include <unistd.h>
+#define CLEAR "clear"
 #endif
 
-void clearConsole()
-{
+void clearConsole() {
     std::system(CLEAR);
 }
 
-void waitingForEnter()
-{
+void waitingForEnter() {
     std::cin.clear();
     std::cin.ignore();
     std::cout << "\n\nНажмите любую клавишу, чтобы продолжить...";
@@ -35,55 +34,55 @@ void testMatrix();
 void autotestMatrix();
 
 void manualtestMatrix();
-int main() 
-{
 
+void testPolynom();
+
+void testTriangle();
+
+int main() {
     Polynom a(3, 1), b(6, -2.2);
     std::cout << (a - b) << std::endl;
     std::cout << (a + b) << std::endl;
     std::cout << (a * b) << std::endl;
 
-    // while (true) 
-    // {
-    //     clearConsole();
-    //     std::cout << "=============МЕНЮ=============\n\n";
-    //     std::cout << "1. Complex\n2. Vector\n3. Matrix\n4. Polynom\n5. \n\n";
-    //     std::cout << "Выберите, что будем тестировать(1-5) или введите -1: ";
+    while (true) {
+        clearConsole();
+        std::cout << "=============МЕНЮ=============\n\n";
+        std::cout << "1. Complex\n2. Vector\n3. Matrix\n4. Polynom\n5. Triangle\n\n";
+        std::cout << "Выберите, что будем тестировать(1-5) или введите -1: ";
 
-    //     int enter;
-    //     std::cin >> enter;
+        int enter;
+        std::cin >> enter;
 
-    //     if (enter == -1) { break; }
+        if (enter == -1) {
+            break;
+        }
 
-    //     switch (enter) {
-    //         case 1:
-    //             testComplex();
-    //             break;      
-    //         case 2:
-    //             testVector();
-    //             break;
-    //         case 3:
-    //             testMatrix();
-    //             break;
-    //         case 4:
-    //             std::cout << "Введите a и b через пробел, если z1 = a + ib";
-    //             break;
-    //             break;
-    //         case 5:
-    //             std::cout << "Введите a и b через пробел, если z1 = a + ib";
-    //             break;
-    //             break;
-    //         default:
-    //             std::cout << "Непон, че за дела? Давай нормальный ввод";
-    //             break;
-    //     }
-    // }   
+        switch (enter) {
+            case 1:
+                testComplex();
+                break;
+            case 2:
+                testVector();
+                break;
+            case 3:
+                testMatrix();
+                break;
+            case 4:
+                testPolynom();
+                break;
+            case 5:
+                testTriangle();
+                break;
+            default:
+                std::cout << "Непон, че за дела? Давай нормальный ввод";
+                break;
+        }
+    }
     return 0;
-
 }
 
-void testComplex()
-{
+void testComplex() {
     clearConsole();
     double a, b, x, y;
 
@@ -106,14 +105,13 @@ void testComplex()
     waitingForEnter();
 }
 
-void testVector()
-{
+void testVector() {
     clearConsole();
     double x1, y1, z1, x2, y2, z2;
     std::cout << "Введите координаты конца первого вектора через пробел: ";
     std::cin >> x1 >> y1 >> z1;
     std::cout << "Введите координаты конца первого вектора через пробел: ";
-    std::cin >> x2 >> y2>> z2;
+    std::cin >> x2 >> y2 >> z2;
 
     Vector v1(x1, y1, z1), v2(x2, y2, z2);
     std::cout << "\nv1 = " << v1.toString();
@@ -130,22 +128,20 @@ void testVector()
     waitingForEnter();
 }
 
-void testMatrix()
-{
+void testMatrix() {
     clearConsole();
-    while (true) 
-    {
-
+    while (true) {
         std::cout << "Доступные режимы:\n\n";
         std::cout << "1. Автотесты\n2. Ручные тесты\n\n";
         std::cout << "Выберите режим или -1 для выхода: ";
-        
+
         int ch;
         std::cin >> ch;
-        if (ch == -1) { break; }
+        if (ch == -1) {
+            break;
+        }
 
-        switch(ch)
-        {
+        switch (ch) {
             case 1:
                 autotestMatrix();
                 break;
@@ -156,14 +152,12 @@ void testMatrix()
                 std::cout << "Непон, че за дела? Давай нормальный ввод";
                 break;
         }
-
     }
     waitingForEnter();
     clearConsole();
 }
 
-void autotestMatrix()
-{
+void autotestMatrix() {
     clearConsole();
     std::vector<Matrix> matrices;
     int r, c, ch;
@@ -171,27 +165,27 @@ void autotestMatrix()
     std::ifstream f("./tests/sf.txt");
     std::istream& fi = f;
 
-    while (f >> r >> c) 
-    {
+    while (f >> r >> c) {
         Matrix m(r, c);
         fi >> m;
         matrices.push_back(m);
-    }    
+    }
 
-    while (true)
-    {
+    while (true) {
         std::cout << "===Режим автоматического тестирования===\n";
         std::cout << "Доступные тесты: \n\n";
-        std::cout << "1. Тест на типы матриц.\n2. Тесты на выполнение бинарных операций.\n3. Тесты на "
-                    "выполнение унарных операций.\n";
+        std::cout
+            << "1. Тест на типы матриц.\n2. Тесты на выполнение бинарных операций.\n3. Тесты на "
+               "выполнение унарных операций.\n";
         std::cout << "\nВыберите тест или введите -1 для выхода: \n\n\n";
 
         std::cin >> ch;
 
-        if (ch == -1) { break; }
+        if (ch == -1) {
+            break;
+        }
 
-        switch (ch)
-        {
+        switch (ch) {
             case 1:
 
                 while (true) {
@@ -206,6 +200,7 @@ void autotestMatrix()
                     std::cin >> inp;
 
                     if (inp == -1) {
+                        clearConsole();
                         break;
                     }
 
@@ -216,7 +211,9 @@ void autotestMatrix()
                     }
 
                     clearConsole();
-                    std::cout << "\nВыбранная матрица:\n" << matrices[inp - 1] << std::endl << std::endl;
+                    std::cout << "\nВыбранная матрица:\n"
+                              << matrices[inp - 1] << std::endl
+                              << std::endl;
                     matrices[inp - 1].autotestSingle();
 
                     waitingForEnter();
@@ -225,12 +222,10 @@ void autotestMatrix()
                 clearConsole();
                 break;
             case 2:
-                while (true) 
-                {
+                while (true) {
                     std::cout << "Матрицы для проверки: \n\n";
                     int inp, n = 1;
-                    for (Matrix m : matrices) 
-                    {
+                    for (Matrix m : matrices) {
                         std::cout << "Матрица №" << n++ << ":" << std::endl << m << std::endl;
                     }
 
@@ -246,7 +241,7 @@ void autotestMatrix()
                         waitingForEnter();
                         continue;
                     }
-                    
+
                     Matrix A = matrices[inp - 1];
                     std::cout << "Введите номер второй матрицы (B) или -1 для выхода: ";
                     std::cin >> inp;
@@ -317,10 +312,11 @@ void autotestMatrix()
                     std::cout << "Введите номер матрицы (M) для проверки или -1 для выхода: ";
                     std::cin >> inp;
 
-                    if (inp == -1) { break; }
+                    if (inp == -1) {
+                        break;
+                    }
 
-                    if (inp >= n) 
-                    {
+                    if (inp >= n) {
                         std::cout << "\nНепон, че за дела? Давай нормальный ввод\n";
                         waitingForEnter();
                         continue;
@@ -328,15 +324,16 @@ void autotestMatrix()
 
                     Matrix M = matrices[inp - 1];
                     clearConsole();
-                    std::cout << "\nВыбранная матрица:\n"
-                              << M << std::endl
-                              << std::endl;
+                    std::cout << "\nВыбранная матрица:\n" << M << std::endl << std::endl;
 
                     std::cout << "M транспонированная:\n\n" << M.transpose() << std::endl;
 
                     try {
+                        Matrix M_inv = M.invert();
                         std::cout << "det(M) = " << M.det() << std::endl;
-                        std::cout << "\nM^(-1):\n" << M.invert() << std::endl;
+                        std::cout << "\nM^(-1):\n" << M_inv << std::endl;
+                        std::cout << "\nM*M^-1:\n";
+                        std::cout << M_inv * M;
                     } catch (const std::exception& e) {
                         std::cerr << "Error: " << e.what() << std::endl;
                     }
@@ -345,7 +342,7 @@ void autotestMatrix()
                 }
                 clearConsole();
                 break;
-        
+
             default:
                 std::cout << "Непон, че за дела? Давай нормальный ввод";
                 break;
@@ -395,20 +392,20 @@ void manualtestMatrix() {
                     // Внутренний цикл для проверки типов
                     while (true) {
                         clearConsole();
-                        int ch;
+                        int ch1;
 
                         std::cout << "Что нужно проверить?\n\n";
                         std::cout << "1. Квадратная\n2. Диагональная\n3. Нулевая\n4. Единичная\n5. "
                                      "Симметричная\n6. Верхняя треугольная\n7. Нижняя "
                                      "треугольная\n\n8. Показать матрицу";
                         std::cout << "\n\nВыберите пункт (1–8) или введите -1 для выхода: ";
-                        std::cin >> ch;
+                        std::cin >> ch1;
 
-                        if (ch == -1) {
+                        if (ch1 == -1) {
                             break;
                         }
 
-                        switch (ch) {
+                        switch (ch1) {
                             case 1: {
                                 std::cout << "Данная матрица:\n";
                                 std::cout << A << std::endl;
@@ -524,15 +521,15 @@ void manualtestMatrix() {
                     std::cout << "4. Сравнение (A == B и A != B)\n";
                     std::cout << "\nВыберите операцию (1-4) или -1 для выхода: ";
 
-                    int ch;
-                    std::cin >> ch;
+                    int ch2;
+                    std::cin >> ch2;
 
-                    if (ch == -1)
+                    if (ch2 == -1)
                         break;
 
                     Matrix tmp_A = A, tmp_B = B, C;
 
-                    switch (ch) {
+                    switch (ch2) {
                         case 1: {
                             std::cout << "\n===Сложение===\n";
                             try {
@@ -618,13 +615,13 @@ void manualtestMatrix() {
                     std::cout << "3. Обратная матрица\n";
                     std::cout << "\nВыберите операцию (1-3) или -1 для выхода: ";
 
-                    int ch;
-                    std::cin >> ch;
+                    int ch3;
+                    std::cin >> ch3;
 
-                    if (ch == -1)
+                    if (ch3 == -1)
                         break;
 
-                    switch (ch) {
+                    switch (ch3) {
                         case 1: {
                             std::cout << "\n===Транспонирование===\n";
                             std::cout << "M транспонированная:\n" << M.transpose() << std::endl;
@@ -666,6 +663,299 @@ void manualtestMatrix() {
                 waitingForEnter();
                 break;
         }
+    }
+    waitingForEnter();
+    clearConsole();
+}
+
+void testPolynom() {
+    clearConsole();
+
+    int n1, n2;
+
+    std::cout << "Введите степень n первого многочлена: ";
+    std::cin >> n1;
+
+    Polynom p1(n1);
+    std::cout << "Введите коэффициенты первого многочлена в строку, начиная со старшей степени:\n";
+    std::cin >> p1;
+
+    std::cin.ignore(100, '\n');
+
+    std::cout << "Введите степень n второго многочлена: ";
+    std::cin >> n2;
+
+    Polynom p2(n2);
+    std::cout << "Введите коэффициентs второго многочлена в строку, начиная со страшей степени:\n";
+    std::cin >> p2;
+
+    std::cin.ignore(100, '\n');
+
+    Polynom p_sum = p1 + p2;
+    Polynom p_diff = p1 - p2;
+    Polynom p_mult = p1 * p2;
+
+    while (true) {
+        clearConsole();
+        int op1 = 0;
+        std::cout << "======МНОГОЧЛЕНЫ======\n\n";
+
+        std::cout << "1. Найти сумму\n";
+        std::cout << "2. Найти разность\n";
+        std::cout << "3. Найти произведение\n";
+        std::cout << "4. Найти значение многочлена для заданного аргумента\n\n";
+
+        std::cout << "Выберите операцию или введите -1 для выхода: ";
+        std::cin >> op1;
+
+        if (op1 == -1) {
+            break;
+        }
+        clearConsole();
+        switch (op1) {
+            case 1:
+
+                std::cout << "p1 = " << p1 << std::endl;
+                std::cout << "p2 = " << p2 << std::endl;
+
+                std::cout << "p1 + p2 = " << p_sum;
+
+                waitingForEnter();
+                break;
+            case 2:
+
+                std::cout << "p1 = " << p1 << std::endl;
+                std::cout << "p2 = " << p2 << std::endl;
+
+                std::cout << "p1 - p2 = " << p_diff;
+
+                waitingForEnter();
+                break;
+            case 3:
+
+                std::cout << "p1 = " << p1 << std::endl;
+                std::cout << "p2 = " << p2 << std::endl;
+
+                std::cout << "p1 * p2 = " << p_mult;
+
+                waitingForEnter();
+                break;
+            case 4:
+
+                while (true) {
+                    clearConsole();
+
+                    double c;
+                    int num;
+
+                    std::cout << "Доступные многочлены:\n\n";
+
+                    std::cout << "1. p1 = " << p1 << std::endl;
+                    std::cout << "2. p2 = " << p2 << std::endl;
+                    std::cout << "3. p1 + p2 = " << p_sum << std::endl;
+                    std::cout << "4. p1 - p2 = " << p_diff << std::endl;
+                    std::cout << "5. p1 * p2 = " << p_mult << std::endl << std::endl;
+
+                    std::cout << "Выберите многочлен или введите -1 для выхода: ";
+                    std::cin >> num;
+
+                    if (num == -1) {
+                        break;
+                    }
+                    clearConsole();
+                    switch (num) {
+                        case 1:
+                            std::cout << "Введите аргумент c: ";
+                            std::cin >> c;
+
+                            std::cout << "\np1 = " << p1 << std::endl;
+                            std::noshowpos(std::cout);
+                            std::cout << "p1(" << c << ") = " << p1(c);
+                            waitingForEnter();
+                            break;
+                        case 2:
+                            std::cout << "Введите аргумент c: ";
+                            std::cin >> c;
+
+                            std::cout << "\np2 = " << p2 << std::endl;
+                            std::noshowpos(std::cout);
+                            std::cout << "p2(" << c << ") = " << p2(c);
+                            waitingForEnter();
+                            break;
+
+                        case 3:
+                            std::cout << "Введите аргумент c: ";
+                            std::cin >> c;
+
+                            std::cout << "\np1 + p2 = " << p_sum << std::endl;
+                            std::noshowpos(std::cout);
+                            std::cout << "p_sum(" << c << ") = " << p_sum(c);
+                            waitingForEnter();
+                            break;
+                        case 4:
+                            std::cout << "Введите аргумент c: ";
+                            std::cin >> c;
+
+                            std::cout << "\np1 - p2 = " << p_diff << std::endl;
+                            std::noshowpos(std::cout);
+                            std::cout << "p_diff(" << c << ") = " << p_diff(c);
+                            waitingForEnter();
+                            break;
+                        case 5:
+                            std::cout << "Введите аргумент: ";
+                            std::cin >> c;
+
+                            std::cout << "\np1 * p2 = " << p_mult << std::endl;
+                            std::noshowpos(std::cout);
+                            std::cout << "\np_mult(" << c << ") = " << p_mult(c);
+                            waitingForEnter();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+                    default:
+                        break;
+                }
+        }
+    }
+    waitingForEnter();
+    clearConsole();
+}
+
+void testTriangle()
+{
+    std::noshowpos(std::cout);
+
+
+    while (true)
+    {
+        clearConsole();
+
+        std::cout << "=====Тестирование класса Треугольник на плоскости=====\n\n";
+
+        std::cout << "1. Переместить треугольник.\n";
+        std::cout << "2. Сравнить треугольники через отношение площадейю\n";
+        std::cout << "3. Определить тип отношения.\n";
+        std::cout << "4. Отыскать треугольник с максмальной площадью.\n\n";
+
+        std::cout << "Выберите действие или нвберите -1 для выхода: ";
+
+        int n;
+        std::cin >> n;
+
+        if (n == -1) {
+            break;
+        }
+
+        switch (n)
+        {
+            case 1:
+            {
+                clearConsole();
+
+                Triangle t;
+                std::cout << "Введите координаты вершин в строку через пробел:\n";
+                std::cin >> t;
+
+                std::cout << "Введенные вершины:\n";
+                std::cout << t;
+
+                std::cout << "\n\nВыберите смещение по x и по y:\n";
+                double x, y;
+                std::cin >> x >> y;
+                t.relocate(x, y);
+
+                std::cout << "Вершины смещенного треугольника:\n";
+                std::cout << t;
+
+                waitingForEnter();
+                break;
+            }
+            case 2:
+            {
+                clearConsole();
+
+                Triangle t1;
+                std::cout << "Введите координаты вершин t1 в строку через пробел:\n";
+                std::cin >> t1;  // 0.2 0.2 0.8 0.2 0.5 0.8
+
+                std::cout << "Введенные вершины:\n";
+                std::cout << t1;
+
+
+                Triangle t2;
+                std::cout << "\nВведите координаты вершин t2 в строку через пробел:\n";
+                std::cin >> t2; // 0.3 0.25 0.5 0.3 0.5 0.6
+                                // 0.3 0.25 0.9 0.5 0.5 0.6
+                std::cout << "Введенные вершины:\n";
+                std::cout << t2;
+
+                bool greater7 = (t1 > t2);
+                 std::cout << "\n\nt1 " << (greater7 ? "больше" : "меньше") << " t2";
+
+                waitingForEnter();
+                break;
+            }
+            case 3:
+            {
+                clearConsole();
+
+                Triangle t1;
+                std::cout << "Введите координаты вершин t1 в строку через пробел:\n";
+                std::cin >> t1;  // 0.2 0.2 0.8 0.2 0.5 0.8
+
+                std::cout << "Введенные вершины:\n";
+                std::cout << t1;
+
+                Triangle t2;
+                std::cout << "\nВведите координаты вершин t2 в строку через пробел:\n";
+                std::cin >> t2;  // 0.3 0.25 0.5 0.3 0.5 0.6
+                                 // 0.3 0.25 0.9 0.5 0.5 0.6
+
+                std::cout << "Введенные вершины:\n";
+                std::cout << t2;
+
+                bool include7 = t1.includes(t2);
+                std::cout << "\n\nt2 " << (include7 ? "входит" : "не входит") << " в t1";
+
+                waitingForEnter();
+                break;
+            }
+            case 4:
+            {
+                clearConsole();
+
+                Triangle triangles[] = {Triangle(0.2, 0.2, 0.8, 0.2, 0.5, 0.8),
+                                        Triangle(0.3, 0.25, 0.5, 0.3, 0.5, 0.6),
+                                        Triangle(0.3, 0.25, 0.9, 0.5, 0.5, 0.6)};
+
+                std::cout << "Для треугольников с веришнами";
+
+                double maxArea = 0;
+                int maxI = 0;
+                for (int i = 0; i < 3; i++) 
+                {
+                    std::cout << "\n" << triangles[i];
+                    double area = triangles[i].getArea();
+                    if (maxArea < area) { maxArea = area; maxI = i; }
+                }
+
+                std::cout << "\nМаксимальная площадь равна " << maxArea << " у треугольника с вершинами\n" << triangles[maxI];
+                waitingForEnter();
+                break;
+            }
+            default:
+            {
+                clearConsole();
+
+                std::cout << "Нормальный ввод пжпж.";
+                waitingForEnter();
+            }
+                
+        }
+
     }
     waitingForEnter();
     clearConsole();
