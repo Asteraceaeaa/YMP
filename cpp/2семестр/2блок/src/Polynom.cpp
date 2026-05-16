@@ -1,6 +1,7 @@
 #include "../include/Polynom.h"
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 const double eps = 1e-12;
 
@@ -35,12 +36,14 @@ Polynom Polynom::operator+(const Polynom& p)
 
     Polynom res(deg, 0.0);
 
-    for (int i = static_cast<int>(m_deg); i >= 0; i--) {
-        res.m_coefs[i] = m_coefs[i];
+    for (int i = static_cast<int>(m_deg); i >= 0; i--) 
+    {
+        res.m_coefs[i + (deg - m_deg)] = m_coefs[i];
     }
 
-    for (int i = static_cast<int>(m_deg); i >= 0; i--) {
-        res.m_coefs[i] += p.m_coefs[i];
+    for (int i = static_cast<int>(p.m_deg); i >= 0; i--) 
+    {
+        res.m_coefs[i + (deg - p.m_deg)] += p.m_coefs[i];
     }
 
     return res;
@@ -52,12 +55,15 @@ Polynom Polynom::operator-(const Polynom& p)
 
     Polynom res(deg, 0.0);
 
-    for (int i = static_cast<int>(m_deg); i >= 0; i--) {
-        res.m_coefs[i] = m_coefs[i];
+    
+    for (int i = static_cast<int>(m_deg); i >= 0; i--) 
+    {
+        res.m_coefs[i + (deg - m_deg)] = m_coefs[i];
     }
 
-    for (int i = static_cast<int>(m_deg); i >= 0; i--) {
-        res.m_coefs[i] -= p.m_coefs[i];
+    for (int i = static_cast<int>(p.m_deg); i >= 0; i--) 
+    {
+        res.m_coefs[i + (deg - p.m_deg)] -= p.m_coefs[i];
     }
 
     return res;
@@ -90,22 +96,24 @@ Polynom Polynom::operator=(const Polynom& p)
 std::ostream& operator<<(std::ostream& os, const Polynom& p)
 {
 
-
     for (std::size_t i = 0; i <= p.m_deg; i++)
     {
         int cur_deg = static_cast<int>(p.m_deg) - i;
-        bool f = cur_deg != 0;
-
-        std::string out = f ? "x^" + std::to_string(cur_deg) : "";
-        
+    
         if (static_cast<int>(i) == 0)
         {
+            bool f = cur_deg != 0;
+            std::string out = f ? "x^" + std::to_string(cur_deg) : "";
             std::noshowpos(os);
             os << p.m_coefs[i];
             os << out;
             i++;
+            cur_deg--;
         }
-        
+
+        bool f = cur_deg != 0;
+        std::string out = f ? "x^" + std::to_string(cur_deg) : "";
+
         std::showpos(os);
         os << p.m_coefs[i];
         os << out;

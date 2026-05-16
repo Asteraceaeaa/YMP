@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class Point
 {
@@ -11,7 +12,7 @@ public:
     Point();
     Point(double x1, double x2);
 
-    virtual ~Point();
+    virtual ~Point() = default;
     /*
     При создании объекта класса с виртуальными функциями в нём создаётся специальный указатель
      * (vptr), который указывает на виртуальную таблицу (vtable) этого класса. vtable содержит
@@ -21,13 +22,14 @@ public:
      * вызывается сама функция.
      * */
 
-    double getX1() const;
-    double getX2() const;
+    virtual double getX1() const;
+    virtual double getX2() const;
 
-    void setX1(double val);
-    void setX2(double val);
+    virtual void setX1(double val);
+    virtual void setX2(double val);
 
     double distTo(Point& p) const;
 
-    virtual void print();
+    virtual void print() const;
+    virtual std::string toStr() const;
 };

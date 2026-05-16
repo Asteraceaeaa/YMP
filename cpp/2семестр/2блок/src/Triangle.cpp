@@ -3,7 +3,7 @@
 #include "Vector.h"
 #include <cmath>
 
-const double eps = 1e-12;
+// const double eps = 1e-12;
 
 Triangle::Triangle() {};
 
@@ -40,8 +40,6 @@ bool Triangle::includes(const Triangle& t) const
 {
     // Вершины первого треугольника - A, B, C; 
     // Вершины второго треугольника - P1, P2, P3
-    Vector AB(m_x2 - m_x1, m_y2 - m_y1);
-    Vector AC(m_x3 - m_x1, m_y3 - m_y1);
 
     double areaABC = getAreaOriented();
 
@@ -116,7 +114,7 @@ bool Triangle::operator>(const Triangle& t) const {
 
 bool pointIsInside(double a, double b, double g)
 {
-    return (a >= eps && b >= eps && g >= eps);
+    return (a >= 0 && b >= 0 && g >= 0);
 }
 
 std::istream& operator>>(std::istream& is, Triangle& t) {

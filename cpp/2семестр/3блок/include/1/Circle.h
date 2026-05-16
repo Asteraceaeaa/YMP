@@ -1,3 +1,4 @@
+#pragma once
 #include "Point.h"
 
 
@@ -15,8 +16,6 @@ public:
     
     void setR(double val);
 
-    double getArea();
-
-    void print() override;
+    void print() const override;
 
 };

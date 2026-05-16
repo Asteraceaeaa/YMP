@@ -66,6 +66,7 @@ int main() {
                 testVector();
                 break;
             case 3:
+                std::noshowpos(std::cout);
                 testMatrix();
                 break;
             case 4:

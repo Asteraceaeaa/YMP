@@ -30,7 +30,7 @@ void Matrix::resize(std::size_t r, std::size_t c)
     m_rows = r; m_cols = c;
     data.resize(r);
 
-    for (auto& row : data) { row.resize(c); }
+    for (auto& row : data) { row.resize(c, 0.0); }
 }
 
 void Matrix::autotestSingle()

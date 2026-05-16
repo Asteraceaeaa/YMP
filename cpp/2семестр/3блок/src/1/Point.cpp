@@ -1,4 +1,4 @@
-#include "../include/Point.h"
+#include "../../include/1/Point.h"
 #include <cmath>
 #include <iostream>
 
@@ -29,7 +29,12 @@ double Point::distTo(Point& p) const
     return std::sqrt(std::pow(m_x1 - p.m_x1, 2) + std::pow(m_x2 - p.m_x2, 2));
 }
 
-void Point::print()
+void Point::print() const
 {
     std::cout << "\nКоординаты точки: " << "(" << m_x1 << ", " << m_x2 << ")"; 
+}
+
+std::string Point::toStr() const
+{
+    return "(" + std::to_string(m_x1) + ", " + std::to_string(m_x2) + ")";
 }
