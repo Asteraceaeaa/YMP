@@ -28,5 +28,5 @@ public:
 
 };
 
-std::ostream& operator<<(std::ostream& os, const Polynom& p);
-std::istream& operator>>(std::istream& is, Polynom& m);
+// std::ostream& operator<<(std::ostream& os, const Polynom& p);
+// std::istream& operator>>(std::istream& is, Polynom& m);

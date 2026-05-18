@@ -11,11 +11,11 @@ public:
     Line2D();
     Line2D(double p1_x1, double p1_x2, double p2_x1, double p2_x2);
 
-    double getX1() const override;
-    double getX2() const override;
+    double getX1P2() const;
+    double getX2P2() const;
 
-    void setX1(double val) override;
-    void setX2(double val) override;
+    void setX1P2(double val);
+    void setX2P2(double val);
 
     void print() const override;
 

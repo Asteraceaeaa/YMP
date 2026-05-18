@@ -6,26 +6,27 @@
 const double eps = 1e-12;
 
 Polynom::Polynom() : m_deg(0), m_coefs(1, 0.0) {};
-// Polynom::Polynom(const std::size_t& n, const std::vector<double>& coefs) : m_deg(n), m_coefs(coefs) {
-//     if (coefs.empty())
-//         throw std::invalid_argument("Коэффициенты не могут быть пустыми");
-//     std::size_t l = coefs.size();
-//     if ((l - 1) != n) 
-//     {
-//         std::cerr << "Степень не соответсвует колву коэффициентов. Степень автоматически изменена и равна " << l - 1 << std::endl;
-//         m_deg = l - 1;
-//     }
-// };
+Polynom::Polynom(const std::size_t& n, const std::vector<double>& coefs) : m_deg(n), m_coefs(coefs) {
+    if (coefs.empty())
+        throw std::invalid_argument("Коэффициенты не могут быть пустыми");
+    std::size_t l = coefs.size();
+    if ((l - 1) != n) 
+    {
+        std::cerr << "Степень не соответсвует колву коэффициентов. Степень автоматически изменена и равна " << l - 1 << std::endl;
+        m_deg = l - 1;
+    }
+};
 Polynom::Polynom(const std::size_t& n) : m_deg(n), m_coefs(n + 1, 0.0) {}
 Polynom::Polynom(const std::size_t& n, const double& initVal) : m_deg(n), m_coefs(n + 1, initVal) {}
 
 double Polynom::operator()(const double& c) {
 
     double bk = m_coefs[0];
+
     for (int k = 1; k <= static_cast<int>(m_deg); k++) {
         double ak = m_coefs[k];
         bk = ak + bk * c;
-    }
+    }   
 
     return bk;
 }

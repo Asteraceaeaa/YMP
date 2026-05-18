@@ -1,0 +1,15 @@
+@startuml ATM
+class ATM
+
+class Account
+{
+-CardNumber[20]
+-PIN[4]
+-balance
+---
++verifyPin(double input)
+}
+class Transaction {
+#amountOfMany
+}
+@enduml
